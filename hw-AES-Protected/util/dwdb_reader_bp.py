@@ -243,8 +243,7 @@ class dwdb_reader(object):
     off = -int(off) if off is not None else 0
     sample_len = stop - start
     start += off
-    full_fn = os.path.join(self.base_path, filename).replace('\\', '/')
-    # Read the trace
+    full_fn = os.path.join(self.base_path, filename)
     trace = read_trace(full_fn, start, sample_len)
     # Convert to signed values
     trace = _convert_dict[trace.dtype](trace)

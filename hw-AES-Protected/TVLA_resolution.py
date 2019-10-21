@@ -23,16 +23,23 @@ from scipy import stats
 from scipy.stats import chi2
 from scipy.stats import chi2_contingency
 from scipy.stats import norm
-import seaborn as sns
+#import seaborn as sns
 import random
 import util.dwdb_reader as io
 import util.tests as tests
 
 
-tracenum = 5
+tracenum = 2
 
-dsr = io.dwdb_reader('RawTraces.dwdb')
-data_batch, meta_batch = dsr.read_batch(tracenum, 0, 300)
+dsr = io.dwdb_reader('/Users/yaoyuan/Desktop/Boostrap-TVLA/hw-AES-Protected/RawTraces.dwdb', '/Users/yaoyuan/Desktop/Boostrap-TVLA/hw-AES-Protected/')
+data_batch, meta_batch = dsr.read_batch(tracenum, 40, 200)
 data_np = np.asarray(data_batch)
 
+#processing of classifiers
+classifiers = [m['classifiers'].strip('{}') for m in meta_batch]
+#classifiers = np.asarray(classifiers) # 2D numpy array of classifier
 
+print (meta_batch)
+print (data_batch)
+plt.plot(data_batch[0])
+plt.show()
