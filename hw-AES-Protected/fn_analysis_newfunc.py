@@ -126,6 +126,10 @@ result_dir = "fn_Bootevolution_test"
 if not os.path.exists(result_dir):
   os.mkdir(result_dir)
   os.mkdir(result_dir+'/boot-p')
+
+#Yuan: Note that the basic range is from (40,180)
+sample_start = 40 + 83
+sample_end = 40 +84
 #bootstrapping number
 #bootnum = 200
 numbers =[]
@@ -139,15 +143,15 @@ trace_set=[]
 p_final_list = []
 plog_final_list = []
 ks_p_evolution = []
-bootlist = [100]
+bootlist = [500]
 #binave = dpawstools.binave(test_sample, 1)
 for bootnum in bootlist:
       print("working on {}boot".format(bootnum))
       p_final_list = []
       plog_final_list = []
       ks_p_evolution = []
-      for i in range(1, 11):
-            trace_num = i*20
+      for i in range(1, 21):
+            trace_num = i*50
             x_axis.append(trace_num)
             print ("****************tracenumber:{}******".format(trace_num))
             for b in range(0,bootnum):
@@ -158,15 +162,25 @@ for bootnum in bootlist:
                 rand_readings = np.sort(np.random.randint(trace_num, size=trace_num))
                 hist_readings = np.histogram(rand_readings, bins=trace_num)[0]
                 
-                # creat reader
-                dsr = io.dwdb_reader('log.dwdb')
-                # [196,197) this is from...to...sample, data_batch is a list of numpy array, this specify the single sample
-                data_batch, meta_batch = dsr.read_batch(trace_num, 40274, 40275)
+                # # creat reader
+                # dsr = io.dwdb_reader('log.dwdb')
+                # # [196,197) this is from...to...sample, data_batch is a list of numpy array, this specify the single sample
+                # data_batch, meta_batch = dsr.read_batch(trace_num, 40274, 40275)
 
-                data_np = np.asarray(data_batch) # 2D numpy array of sample
+                # data_np = np.asarray(data_batch) # 2D numpy array of sample
+
+                # trace reading:
+                dsr = io.dwdb_reader('/Users/yaoyuan/Desktop/Boostrap-TVLA/hw-AES-Protected/RawTraces.dwdb', '/Users/yaoyuan/Desktop/Boostrap-TVLA/hw-AES-Protected/')
+                data_batch, meta_batch = dsr.read_batch(trace_num, sample_start, sample_end)
+                data_np = np.asarray(data_batch)
+
                 #processing of classifiers
-                classifiers = [m['classifiers'].strip('{}') for m in meta_batch]
-                classifiers = np.asarray(classifiers) # 2D numpy array of classifier
+                classifiers = [s.split('=')[1] for m in meta_batch for s in m['other'].split() if s.startswith('s=')]
+                classifiers= np.asarray(classifiers) # 2D numpy array of classifier
+                #print("finish readin traces")
+                #processing of classifiers
+                # classifiers = [m['classifiers'].strip('{}') for m in meta_batch]
+                # classifiers = np.asarray(classifiers) # 2D numpy array of classifier
 
                 data = np.ones_like(data_np[0])
                 data_label = np.ones_like(classifiers[0])
@@ -182,7 +196,7 @@ for bootnum in bootlist:
                 data = data[1:,:]
                 data_label = data_label[1:,:]
                 tt2 = tests.welch_ttest_fvr(data, data_label)[np.newaxis]
-                print("tt2:{}".format(tt2))
+                #print("tt2:{}".format(tt2))
                 #--------------------------------------------------------------#
                 #binave = DpawsTools.Binave(len(test_samples), 1)
                 #with open('log.dwdb') as file:
@@ -205,7 +219,7 @@ for bootnum in bootlist:
                 #print("tt:{}".format(tt))
                 #--------------------------------------------------------------#
                 #print("tt:{}".format(tt))
-                t_abs = np.absolute(tt)
+                t_abs = np.absolute(tt2)
                 t_p = 2*(1- norm.cdf(t_abs))
                 #post processing
                 small_value =  1.8e-305

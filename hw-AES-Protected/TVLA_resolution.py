@@ -30,8 +30,10 @@ import util.tests as tests
 
 
 tracenum = 75000
-sample_start = 83
-sample_end = 84
+#Yuan: Note that the basic range is from (40,180)
+sample_start = 40 + 83
+sample_end = 40 +84
+
 #sample_start = 0
 #sample_end = 3
 dsr = io.dwdb_reader('/Users/yaoyuan/Desktop/Boostrap-TVLA/hw-AES-Protected/RawTraces.dwdb', '/Users/yaoyuan/Desktop/Boostrap-TVLA/hw-AES-Protected/')
@@ -45,7 +47,7 @@ print("finish readin traces")
 
 t_evolution = []
 legend = []
-for j in range(13, 16):
+for j in range(1, 16):
 	tracenum = j * 5000
 	legend.append(tracenum)
 # initializing the rand and fix dataset
@@ -80,11 +82,20 @@ for j in range(13, 16):
 	#print (classifiers)
 	#print (data_batch[1])
 	print ("finish the {}".format(tracenum))
-plt.plot(t_evolution[0])
-plt.plot(t_evolution[1])
-plt.plot(t_evolution[2])
+print(t_evolution)
+t_evolution_flat =  (np.array(t_evolution)).flatten()
+print(t_evolution_flat)
+
+plt.plot(legend, t_evolution_flat)
 plt.axhline(y=4.5, color='r')
-plt.axvline(x=83,  color='b')
-#plt.legend(['10000','20000', '30000'], loc='upper left')
-plt.legend(legend, loc='upper left')
+
+# plt.plot(t_evolution[0])
+# plt.plot(t_evolution[1])
+# plt.plot(t_evolution[2])
+# plt.axhline(y=4.5, color='r')
+# plt.axvline(x=83,  color='b')
+# #plt.legend(['10000','20000', '30000'], loc='upper left')
+# plt.legend(legend, loc='upper left')
+
+
 plt.show()
