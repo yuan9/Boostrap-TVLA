@@ -29,9 +29,9 @@ import util.dwdb_reader as io
 import util.tests as tests
 
 
-tracenum = 30000
-sample_start = 40
-sample_end = 180
+tracenum = 75000
+sample_start = 83
+sample_end = 84
 #sample_start = 0
 #sample_end = 3
 dsr = io.dwdb_reader('/Users/yaoyuan/Desktop/Boostrap-TVLA/hw-AES-Protected/RawTraces.dwdb', '/Users/yaoyuan/Desktop/Boostrap-TVLA/hw-AES-Protected/')
@@ -41,10 +41,13 @@ data_np = np.asarray(data_batch)
 #processing of classifiers
 classifiers = [s.split('=')[1] for m in meta_batch for s in m['other'].split() if s.startswith('s=')]
 classifiers= np.asarray(classifiers) # 2D numpy array of classifier
+print("finish readin traces")
 
 t_evolution = []
-for j in range(1, 4):
-	tracenum = j * 10000
+legend = []
+for j in range(13, 16):
+	tracenum = j * 5000
+	legend.append(tracenum)
 # initializing the rand and fix dataset
 	rand = []
 	fix = []
@@ -76,10 +79,12 @@ for j in range(1, 4):
 	# print (data_label)
 	#print (classifiers)
 	#print (data_batch[1])
-
+	print ("finish the {}".format(tracenum))
 plt.plot(t_evolution[0])
 plt.plot(t_evolution[1])
 plt.plot(t_evolution[2])
 plt.axhline(y=4.5, color='r')
-plt.legend(['10000','20000', '30000'], loc='upper left')
+plt.axvline(x=83,  color='b')
+#plt.legend(['10000','20000', '30000'], loc='upper left')
+plt.legend(legend, loc='upper left')
 plt.show()
