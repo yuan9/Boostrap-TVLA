@@ -80,10 +80,11 @@ plt.ylabel('t-statistic');
 
 #Yuan: t-value plotting
 #print("obsv rand vs rand-t:{} p:{}".format(t_obs2,p_obs2))
-#plt.plot(x_axis,t_list,linewidth=2, linestyle='-', color = 'Navy')
-#plt.axhline(y=4.5, color='r')
+plt.plot(x_axis,t_list,linewidth=2, linestyle='-', color = 'Navy')
+plt.axhline(y=4.5, color='r',linewidth=2)
+plt.ylim(top = 10)
 
 #Yuan: p-value ploting
-plt.plot(x_axis,p_list,linewidth=2, linestyle='-', color = 'Navy')
-plt.axhline(y=5.3, color='r',linewidth=2)
+#plt.plot(x_axis,p_list,linewidth=2, linestyle='-', color = 'Navy')
+#plt.axhline(y=5.3, color='r',linewidth=2)
 plt.show()

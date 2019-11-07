@@ -30,9 +30,9 @@ rand = []
 fix = []
 #F1 = open('rr_1000traces_snr1_f5-2019-07-30_15_09/4.5327166168Rand1Noise_1000traces_1SNR_f5.txt','r')
 #F1 = open('rand_noise_10k.txt','r')
-F1 = open('rand_noise_trace10000.txt','r')
+#F1 = open('rand_noise_trace10000.txt','r')
 #F1 = open('Z:/simulation-trace/TP_SmallValue_set/1RandNoise_1000traces_0.01SNR_f5.txt','r')
-#F1 = open('f4_noise_trace10000.txt','r')
+F1 = open('f4_noise_trace10000.txt','r')
 file_string1 = F1.read()
 F1.close()
 file_split1 = file_string1.split("\n")[:-1]
@@ -45,9 +45,9 @@ rand = np.array(file_split1, dtype = np.float32)
 rand2 = []
 #F1 = open('rr_1000traces_snr1_f5-2019-07-30_15_09/4.5327166168Rand2Noise_1000traces_1SNR_f5.txt','r')
 #F1 = open('fix_noise_10k.txt','r')
-F1 = open('rand2_noise_trace10000.txt','r')
+#F1 = open('rand2_noise_trace10000.txt','r')
 #F1 = open('Z:/simulation-trace/TP_SmallValue_set/1FixNoise_1000traces_0.01SNR_f5.txt','r')
-#F1 = open('f5_noise_trace10000.txt','r')
+F1 = open('f5_noise_trace10000.txt','r')
 file_string1 = F1.read()
 F1.close()
 file_split1 = file_string1.split("\n")[:-1]
@@ -62,7 +62,7 @@ rand2 = np.array(file_split1, dtype = np.float32)
 t_list = []
 _p_list = []
 x_axis = []
-for i in range(1,100):
+for i in range(1,150):
 
     test_trace = i * 10      
     t_obs2, p_obs2 = stats.ttest_ind(rand[0:test_trace-1],rand2[0:test_trace-1], equal_var = False)
@@ -80,10 +80,11 @@ plt.ylabel('t-statistic');
 
 #Yuan: t-value plotting
 #print("obsv rand vs rand-t:{} p:{}".format(t_obs2,p_obs2))
-#plt.plot(x_axis,t_list,linewidth=2, linestyle='-', color = 'Navy')
-#plt.axhline(y=4.5, color='r')
+plt.plot(x_axis,t_list,linewidth=2, linestyle='-', color = 'Navy')
+plt.axhline(y=4.5, color='r',linewidth=2)
+plt.ylim(top = 10)
 
 #Yuan: p-value ploting
-plt.plot(x_axis,p_list,linewidth=2, linestyle='-', color = 'Navy')
-plt.axhline(y=5.3, color='r',linewidth=2)
+#plt.plot(x_axis,p_list,linewidth=2, linestyle='-', color = 'Navy')
+#plt.axhline(y=5.3, color='r',linewidth=2)
 plt.show()

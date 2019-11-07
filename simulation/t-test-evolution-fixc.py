@@ -157,7 +157,7 @@ np.savetxt(result_dir+'/ksplog_{}boot.txt'.format(bootnum),p_ks_finallist_log,fm
 np.savetxt(result_dir+'/ksp_{}boot.txt'.format(bootnum),p_ks_finallist,fmt = '%s', delimiter=',')
 
 plt.plot(x_axis2,p_ks_finallist_log)
-plt.axhline(y=6.3, color='r')
+plt.axhline(y=5.3, color='r')
 
 fig.savefig(result_dir+'/evolution_{}boot.png'.format(bootnum))
 plt.show()
