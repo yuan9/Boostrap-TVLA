@@ -26,6 +26,10 @@ t = 0
 counter = 0
 counter2 = 0
 
+if not os.path.exists(result_dir_tp):
+    os.mkdir(result_dir_tp)
+    #os.mkdir(result_dir+'/boot-p')
+
 
 while 1:
 #---------------------------------------------------------@
@@ -96,5 +100,5 @@ while 1:
               print("find tp {}:{}".format(counter,abs(t)))
               #np.savetxt(result_dir+'/{}Rand1Noise_{}traces_{}SNR_f{}.txt'.format(abs(t), trace_num,target_snr_db,fix_value),rand1_noise,fmt = '%s', delimiter=',')
               #np.savetxt(result_dir+'/{}Rand2Noise_{}traces_{}SNR_f{}.txt'.format(abs(t), trace_num,target_snr_db,fix_value),rand2_noise,fmt = '%s', delimiter=',')
-              np.savetxt(result_dir_tp+'/{}RandNoise_{}traces_{}SNR_f{}.txt'.format(counter, trace_num,target_snr_db,fix_value),y_volts_rand,fmt = '%s', delimiter=',')
-              np.savetxt(result_dir_tp+'/{}FixNoise_{}traces_{}SNR_f{}.txt'.format(counter, trace_num,target_snr_db,fix_value),y_volts_fix,fmt = '%s', delimiter=',')
+              np.savetxt(result_dir_tp+'/{}-{}RandNoise_{}traces_{}SNR_f{}.txt'.format(counter,t, trace_num,target_snr_db,fix_value),y_volts_rand,fmt = '%s', delimiter=',')
+              np.savetxt(result_dir_tp+'/{}-{}FixNoise_{}traces_{}SNR_f{}.txt'.format(counter,t, trace_num,target_snr_db,fix_value),y_volts_fix,fmt = '%s', delimiter=',')
