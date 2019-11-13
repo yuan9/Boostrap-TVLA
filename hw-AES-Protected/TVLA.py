@@ -31,8 +31,8 @@ import util.tests as tests
 
 tracenum = 75000
 #Yuan: Note that the basic range is from (40,180)
-sample_start = 40 + 83
-sample_end = 40 +84
+sample_start = 40 
+sample_end = 180
 
 #sample_start = 0
 #sample_end = 3
@@ -80,10 +80,17 @@ for i in range(0, sample_end - sample_start):
 #print (classifiers)
 #print (data_batch[1])
 
+font = {'family' : 'normal',  'size'   : 30}
+plt.rc('font', **font)
+plt.rcParams['figure.facecolor'] = 'white'
 
-plt.plot(np.abs(t_value))
-plt.axhline(y=4.5, color='r')
+plt.xlabel('Time');
+plt.ylabel('t-statistics');
 
+print(t_value)
+plt.plot(t_value,linewidth=2, linestyle='-',  color = 'navy')
+plt.axhline(y=4.5, color='r', linewidth=2)
+plt.ylim(top = 10 )
 # plt.plot(t_evolution[0])
 # plt.plot(t_evolution[1])
 # plt.plot(t_evolution[2])

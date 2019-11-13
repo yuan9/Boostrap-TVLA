@@ -88,7 +88,7 @@ print(t_evolution_flat)
 
 plt.plot(legend, t_evolution_flat)
 plt.axhline(y=4.5, color='r')
-
+plt.ylim(top = 10)
 # plt.plot(t_evolution[0])
 # plt.plot(t_evolution[1])
 # plt.plot(t_evolution[2])
