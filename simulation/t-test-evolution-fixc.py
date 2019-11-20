@@ -15,7 +15,7 @@ target_snr_db = 1
 trace_num = 10000
 bootnum = 400
 fix_value = 5
-result_dir = "fn_evolution"
+result_dir = "fn_evolution_test"
 #result_dir = "fp_evolution"
 #result_dir = "fn_fvf_evolution"
 if not os.path.exists(result_dir):
@@ -149,7 +149,7 @@ for i in range(1,100):
       p_ks_finallist.append(p_ks_final)
 
 fig = plt.figure()
-print(p_ks_finallist)
+print(p_ks_finallist[0:5])
 _p_ks_finallist= np.array(p_ks_finallist)
 p_ks_finallist_log = -np.log10(_p_ks_finallist)
 

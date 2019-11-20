@@ -29,17 +29,17 @@ import util.dwdb_reader as io
 import util.tests as tests
 
 
-tracenum = 75000
+tracenum = 50000
 #Yuan: Note that the basic range is from (40,180)
 sample_start = 40 
 sample_end = 180
 
 #sample_start = 0
 #sample_end = 3
-dsr = io.dwdb_reader('/Users/yaoyuan/Desktop/Boostrap-TVLA/hw-AES-Protected/RawTraces.dwdb', '/Users/yaoyuan/Desktop/Boostrap-TVLA/hw-AES-Protected/')
+dsr = io.dwdb_reader('/Users/yaoyuan/Desktop/Boostrap-TVLA/hw-AES-Protected/RawTraces_new.dwdb', '/Users/yaoyuan/Desktop/Boostrap-TVLA/hw-AES-Protected/')
 data_batch, meta_batch = dsr.read_batch(tracenum, sample_start, sample_end)
 data_np = np.asarray(data_batch)
-
+print(len(data_np[0]))
 #processing of classifiers
 classifiers = [s.split('=')[1] for m in meta_batch for s in m['other'].split() if s.startswith('s=')]
 classifiers= np.asarray(classifiers) # 2D numpy array of classifier
