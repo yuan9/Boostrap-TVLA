@@ -121,7 +121,7 @@ plt.xlabel('Trace Number');
 plt.ylabel('-log10(p)');
 plt.plot(legend, plog_evolution, linewidth=2, linestyle='-', color = 'Navy')
 plt.axhline(y=5, color='r',linewidth=2)
-#plt.ylim(top = 10)
+plt.ylim(top = 10)
 
 
 plt.show()

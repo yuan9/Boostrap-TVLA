@@ -29,8 +29,10 @@ import util.dwdb_reader as io
 import util.tests as tests
 
 result_dir = "fn_Bootevolution_1sample"
-trace_range = 500
-step =  20
+trace_range = 50000
+step =  1000
+# trace_range = 500
+# step =  20
 
 tracenum = 50000
 #Yuan: Note that the basic range is from (40,180), this plot is for sample-83
@@ -95,7 +97,7 @@ for j in range(1, int(trace_range/step) + 1):
 
 t_evolution_flat =  (np.array(t_evolution)).flatten()
 p_evolution_flat =  (np.array(p_evolution)).flatten()
-plog_evolution = -np.log(p_evolution_flat)
+plog_evolution = -np.log10(p_evolution_flat)
 
 np.savetxt(result_dir+'/tplog-step{}-range{}.txt'.format(step, trace_range),plog_evolution,fmt = '%s', delimiter=',')
 
@@ -118,7 +120,7 @@ plt.axhline(y=4.5, color='r',linewidth=2)
 # Yuan: for ploting p-value evolution
 #---------------------------------------------#
 plt.xlabel('Trace Number');
-plt.ylabel('-log10(p)');
+#plt.ylabel('-log10(p)');
 plt.plot(legend, plog_evolution, linewidth=2, linestyle='-', color = 'Navy')
 plt.axhline(y=5, color='r',linewidth=2)
 #plt.ylim(top = 10)
