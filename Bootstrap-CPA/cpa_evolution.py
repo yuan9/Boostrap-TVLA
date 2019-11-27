@@ -34,7 +34,12 @@ import util.tests as tests
 trace_num = 50000
 start_sample = 10
 end_sample =  11
-step =  1000
+step =  5000
+
+
+result_dir = "Boot-CPA-results"
+if not os.path.exists(result_dir):
+  os.mkdir(result_dir)
 
 dsr = io.dwdb_reader('/Users/yaoyuan/Desktop/Boostrap-TVLA/Bootstrap-CPA/trace.dwdb', '/Users/yaoyuan/Desktop/Boostrap-TVLA/Bootstrap-CPA/')
 data_batch, meta_batch = dsr.read_batch(trace_num, start_sample, end_sample)
@@ -93,8 +98,8 @@ np.savetxt('pc.txt',pc_all_abs, fmt = '%s', delimiter=',')
 #---------------------------------------------#
 # Yuan: for ploting correlation coeffitient evolution
 #---------------------------------------------#
-
-font = {'family' : 'normal',  'size'   : 30}
+fig = plt.figure(figsize=(12,6.5))
+font = {'family' : 'normal',  'size'   : 15}
 plt.rc('font', **font)
 plt.rcParams['figure.facecolor'] = 'white'
 
@@ -112,6 +117,7 @@ plt.rcParams['figure.facecolor'] = 'white'
 
 plt.xlabel('Trace Number');
 plt.ylabel('-log10(p)');
+plt.title('CPA')
 
 for i in range(0, len(plog_evolution_trans)):
 	if i == 74:
@@ -119,7 +125,7 @@ for i in range(0, len(plog_evolution_trans)):
 	else:
 		plt.plot(x_axis, plog_evolution_trans[i], linewidth=1.5, linestyle='-', color = 'grey', zorder = i)	
 	
-
+fig.savefig(result_dir+'/OrigCPA_p_step{}_range{}.png'.format(step, trace_num))	
 plt.show()
 
 #plt.plot(data_np[0], linewidth=2, linestyle='-', color = 'Navy')

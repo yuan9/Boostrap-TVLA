@@ -34,7 +34,7 @@ import util.tests as tests
 #Yuan: set evolution value
 trace_num = 50000
 step =  5000
-boot_num = 200
+boot_num = 10
 # trace_num = 5000
 # step =  1000
 # boot_num = 2
@@ -49,7 +49,7 @@ result_dir = "Boot-CPA-results"
 if not os.path.exists(result_dir):
   os.mkdir(result_dir)
 
-
+print("reading traces")
 dsr = io.dwdb_reader('/Users/yaoyuan/Desktop/Boostrap-TVLA/Bootstrap-CPA/trace.dwdb', '/Users/yaoyuan/Desktop/Boostrap-TVLA/Bootstrap-CPA/')
 data_batch, meta_batch = dsr.read_batch(trace_num, start_sample, end_sample)
 data_np = np.asarray(data_batch)
@@ -63,8 +63,8 @@ for hw in classifiers:
 
 classifiers2 =  (np.asarray(_classrifiers)).astype(int)
 
-print(data_np)
-print(classifiers2)
+#print(data_np)
+#print(classifiers2)
 
 pc_evolution = []
 p_evolution = []
@@ -96,7 +96,7 @@ for i in range(1, int(trace_num/step)+1):  # this is the iteration for the trane
 		classifiers_boot = []
 		p_per_boot =[]
 		pc_per_boot =[]
-		print("boot number: {}".format(b))
+		#print("boot number: {}".format(b))
 		random_list = np.random.randint(len(data_bootorig)-1, size = len(data_bootorig))
 		random_list.sort()
 	
@@ -163,6 +163,7 @@ plt.rcParams['figure.facecolor'] = 'white'
 
 plt.xlabel('Trace Number');
 plt.ylabel('-log10(p)');
+plt.title('Boot-CPA-{}iterations'.format(boot_num))
 
 for i in range(0, len(plog_ks_evolution_trans)):
 	if i == 74:
@@ -170,6 +171,6 @@ for i in range(0, len(plog_ks_evolution_trans)):
 	else:
 		plt.plot(x_axis, plog_ks_evolution_trans[i], linewidth=1.5, linestyle='-', color = 'grey', zorder = i)	
 
-fig.savefig(result_dir+'/BootCPA_{}boot_step{}.png'.format(boot_num, step))	
+fig.savefig(result_dir+'/BootCPA_{}boot_step{}_range{}.png'.format(boot_num, step, trace_num))	
 
 plt.show()
