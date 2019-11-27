@@ -32,7 +32,7 @@ import util.dwdb_reader as io
 import util.tests as tests
 
 trace_num = 40000
-start_sample = 10
+start_sample = 50
 end_sample =  11
 
 

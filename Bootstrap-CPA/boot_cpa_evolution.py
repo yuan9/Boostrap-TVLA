@@ -31,12 +31,24 @@ import time
 import util.dwdb_reader as io
 import util.tests as tests
 
+#Yuan: set evolution value
 trace_num = 50000
+step =  5000
+boot_num = 200
+# trace_num = 5000
+# step =  1000
+# boot_num = 2
+
+#Yuan: set analysis target sample
 start_sample = 10
 end_sample =  11
-step =  5000
-boot_num = 20
+
 small_value =  1e-323
+
+result_dir = "Boot-CPA-results"
+if not os.path.exists(result_dir):
+  os.mkdir(result_dir)
+
 
 dsr = io.dwdb_reader('/Users/yaoyuan/Desktop/Boostrap-TVLA/Bootstrap-CPA/trace.dwdb', '/Users/yaoyuan/Desktop/Boostrap-TVLA/Bootstrap-CPA/')
 data_batch, meta_batch = dsr.read_batch(trace_num, start_sample, end_sample)
@@ -137,25 +149,17 @@ for i in range(1, int(trace_num/step)+1):  # this is the iteration for the trane
 	plog_ks_evolution.append(plog_ks)
 
 plog_ks_evolution_trans = (np.asarray(plog_ks_evolution)).T
-
+np.savetxt(result_dir+'/BootCPA_{}boot_step{}.txt'.format(boot_num, step),plog_ks_evolution_trans,fmt = '%s', delimiter=',')
 #----------------------------------------------------------#
 # plotting the result
 #----------------------------------------------------------#
-font = {'family' : 'normal',  'size'   : 30}
+
+fig = plt.figure(figsize=(12,6.5))
+
+font = {'family' : 'normal',  'size'   : 15}
 plt.rc('font', **font)
 plt.rcParams['figure.facecolor'] = 'white'
 
-# for plogting correlation coefficient
-# plt.xlabel('Trace Number');
-# plt.ylabel('Correlation Coeffitient');
-
-# for i in range(0, len(pc_evolution_trans)):
-# 	if i == 74:
-# 		plt.plot(x_axis, pc_evolution_trans[i], linewidth=1.5, linestyle='-', color = 'r', zorder=255)	
-# 	else:
-# 		plt.plot(x_axis, pc_evolution_trans[i], linewidth=1.5, linestyle='-', color = 'grey', zorder = i)
-
-# for ploting p-value
 
 plt.xlabel('Trace Number');
 plt.ylabel('-log10(p)');
@@ -165,6 +169,7 @@ for i in range(0, len(plog_ks_evolution_trans)):
 		plt.plot(x_axis, plog_ks_evolution_trans[i], linewidth=1.5, linestyle='-', color = 'r', zorder=255)	
 	else:
 		plt.plot(x_axis, plog_ks_evolution_trans[i], linewidth=1.5, linestyle='-', color = 'grey', zorder = i)	
-	
+
+fig.savefig(result_dir+'/BootCPA_{}boot_step{}.png'.format(boot_num, step))	
 
 plt.show()
