@@ -11,9 +11,10 @@ import time
 import sys
 import decimal
 
-target_snr_db = 1
-trace_num = 10000
-bootnum = 400
+trace_num = 1000
+bootnum = 10
+step_evo =  100
+
 fix_value = 5
 result_dir = "fn_evolution_test"
 #result_dir = "fp_evolution"
@@ -80,9 +81,12 @@ small_value = 1e-323
 x_axis2 = []
 p_ks_finallist = []
 #for i in range(1,51):
-for i in range(1,100):
+#print(int(trace_num/step)+1)
+for i in range(1,int(trace_num/step_evo)+1):
       #test_trace = i * 20
-      test_trace = i * 10
+      print(i)
+      test_trace = i * step_evo
+      print("test_trace:{}".format(test_trace))
       t_list = []
       p_list = []
       t_obs2, p_obs2 = stats.ttest_ind(rand[0:test_trace-1],rand2[0:test_trace-1], equal_var = False)

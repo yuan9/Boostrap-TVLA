@@ -39,7 +39,7 @@ result_dir = "Boot_FullTrace2"
 if not os.path.exists(result_dir):
   os.mkdir(result_dir)
 
-#Yuan: Note that the basic range is from (40,180)
+#Yuan: Note that the basic range is f5rom (40,180)
 #sample_start = 40 + 83
 #sample_end = 40 +84
 #---------------------------------------#
@@ -47,7 +47,7 @@ if not os.path.exists(result_dir):
 #----------------------------------------#
 sample_start = 40
 sample_end = 180
-bootnum = 100
+bootnum = 500
 trace_num = 1000
 #bootstrapping number
 #bootnum = 200
