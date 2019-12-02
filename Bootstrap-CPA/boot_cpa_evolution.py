@@ -32,7 +32,7 @@ import util.dwdb_reader as io
 import util.tests as tests
 
 #Yuan: set evolution value
-trace_num = 50000
+trace_num = 40000
 step =  5000
 boot_num = 10
 # trace_num = 5000
@@ -45,7 +45,7 @@ end_sample =  11
 
 small_value =  1e-323
 
-result_dir = "Boot-CPA-results"
+result_dir = "Boot-CPA-results-1201"
 if not os.path.exists(result_dir):
   os.mkdir(result_dir)
 

@@ -92,8 +92,8 @@ pc_evolution_trans =  (np.asarray(pc_evolution)).T
 p_evolution_trans =  (np.asarray(p_evolution)).T
 plog_evolution_trans = -np.log10(p_evolution_trans)
 
-np.savetxt('pc.txt',pc_all_abs, fmt = '%s', delimiter=',')
 
+np.savetxt(result_dir+'/OriginalCPA_plog.txt',plog_evolution_trans,fmt = '%s', delimiter=',')
 
 #---------------------------------------------#
 # Yuan: for ploting correlation coeffitient evolution
