@@ -3,6 +3,38 @@ import numpy as np
 from scipy.stats import ttest_ind, ks_2samp, norm, rv_discrete, rv_continuous
 from scipy.optimize import linprog
 
+_dpawstools = False
+try:
+  import DpawsTools
+  _dpawstools = True
+except ImportError:
+  print("DpawsTools not found. Fall back to scipy")
+  pass
+
+def _fvr_dpaws(traces, classifiers):
+  traces = np.asarray(traces)
+  classifiers = np.asarray(classifiers)
+  tr_num, tr_len = np.shape(traces)
+  cl_num, cl_len = len(classifiers), len(classifiers[0])
+  binave = DpawsTools.Binave(tr_len, cl_len)
+  binave.process(traces, classifiers.tolist())  
+  return next(binave.ttests())
+
+def _fvr_scipy(traces, classifiers):
+  traces = np.asarray(traces, dtype=np.float64)
+  classifiers = np.asarray(classifiers)
+  tr_num, tr_len = np.shape(traces)
+  cl_num, cl_len = len(classifiers), len(classifiers[0])
+  set0 = traces[np.where(classifiers != '1')]
+  set1 = traces[np.where(classifiers == '1')]
+  m0 = np.mean(set0, axis=0)
+  m1 = np.mean(set1, axis=0)
+  s0 = np.var(set0, axis=0, ddof=1)
+  s1 = np.var(set1, axis=0, ddof=1)
+  n0, n1 = len(set0), len(set1)
+  return (m1 - m0) / np.sqrt(s0/n0 + s1/n1)
+
+fvr_ttest = _fvr_dpaws if _dpawstools else _fvr_scipy
 
 def welch_ttest_fvr(traces, classifiers):
   traces = np.asarray(traces, dtype=np.float64)
