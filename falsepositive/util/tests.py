@@ -27,8 +27,8 @@ def _fvr_scipy(traces, classifiers):
   classifiers = np.asarray(classifiers)
   tr_num, tr_len = np.shape(traces)
   cl_num, cl_len = len(classifiers), len(classifiers[0])
-  set0 = traces[np.where(classifiers != '1')]
-  set1 = traces[np.where(classifiers == '1')]
+  set0 = traces[np.where(classifiers != '1')[0]]
+  set1 = traces[np.where(classifiers == '1')[0]]
   m0 = np.mean(set0, axis=0)
   m1 = np.mean(set1, axis=0)
   s0 = np.var(set0, axis=0, ddof=1)
