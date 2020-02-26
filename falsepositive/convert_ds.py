@@ -14,19 +14,20 @@ import util.dwdb_reader as io
 import util.func as f
 
 
-ds_dir = 'FP_set' # source dataset
+ds_dir = 'TP_set.2'
+dsw = io.dwdb_writer(r'TP_db\log.dwdb', '', 'TP_db')
 
-dsw = io.dwdb_writer(r'FP_db\log.dwdb', '', 'FP_db')
-
-p = re.compile(r'(\d+)-(\d+)Rand(\d)Noise')
+fp = re.compile(r'(\d+)-(\d+)Rand(\d)Noise')
+tp = re.compile(r'(\d+)-(\d+)(tp|fix)_1000tr')
 
 for dirName, subdirList, fileList in os.walk(ds_dir):
   print('Processing directory: {}'.format(dirName))
   for fname in fileList:
-    m = p.search(fname)
+    m = tp.search(fname)
+    print("fname {} -> ".format(fname), end='')
     ctr, sn, s = m.group(1, 2, 3)
+    print(ctr, sn, s)
     fname2 = os.path.join(dirName, fname)
-    # print('\t{} -> {}, {}, {}'.format(fname2, ctr, sn, s))
+    print('\t{} -> {}, {}, {}'.format(fname2, ctr, sn, s))
     tr = np.loadtxt(fname2)
-    dsw.write_next(tr, {'ctr': ctr, 'sn' : sn, 's' : s})
-
+    dsw.write_next(tr, {'ctr': ctr, 'sn' : sn, 's' : int(s == 'tp')})
