@@ -14,8 +14,13 @@ Bootstrapping reconsideration
   Should be used like the data is not sufficient
   More boots for better distribution estimation with ks
 
-Generated 500 traces, TP 5.5, FP 5.0, 12 + 12 points
-TP and FP can be found as
+Generated 1000 traces, TP 6.0, FP 5.0, 9 + 9 points
+TP and FP can be found as greater than 0.5 in the mid of bootstraps
+TP GT 0.5: 6, LT 0.5: 3
+FP GT 0.5: 2, LT 0.5: 7
+
+Generated overnight 500 traces, TP 5.5, FP 5.0, 12 + 12 points
+TP and FP can be found as greater than 0.5 in the mid of bootstraps
 TP GT 0.5: 8, LT 0.5: 4
 FP GT 0.5: 4, LT 0.5: 8
 
@@ -23,4 +28,4 @@ Reconstructed small dataset for 4.5? sigmas to (400-600 operations)
   - sigmas decreased to 3.5, 4.0
   - Not a real difference
 
-Started generating 5.5 sigma datasets 
+Started generating 400 traces with 5.5 TP, FP sigma datasets 
