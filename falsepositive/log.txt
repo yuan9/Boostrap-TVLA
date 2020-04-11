@@ -1,0 +1,26 @@
+
+09 Apr
+Updated bootstrapping: 
+  - Changed order of dimensions to boot_set, range, point, all_boots
+    where (range, point, all_boots) one numpy array.
+    It allows better vectorization and simplifies postprocessing
+
+10-11 Apr
+Analyzed big dataset (1000 traces by (1000, 5000, 10000) points) for 4.5 sigmas?
+  - Not a real difference, 50% error
+
+Bootstrapping reconsideration
+  Used for small datasets when no real representation exits
+  Should be used like the data is not sufficient
+  More boots for better distribution estimation with ks
+
+Generated 500 traces, TP 5.5, FP 5.0, 12 + 12 points
+TP and FP can be found as
+TP GT 0.5: 8, LT 0.5: 4
+FP GT 0.5: 4, LT 0.5: 8
+
+Reconstructed small dataset for 4.5? sigmas to (400-600 operations)
+  - sigmas decreased to 3.5, 4.0
+  - Not a real difference
+
+Started generating 5.5 sigma datasets 
