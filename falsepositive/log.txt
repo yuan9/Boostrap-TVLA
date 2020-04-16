@@ -25,7 +25,13 @@ TP GT 0.5: 8, LT 0.5: 4
 FP GT 0.5: 4, LT 0.5: 8
 
 Reconstructed small dataset for 4.5? sigmas to (400-600 operations)
-  - sigmas decreased to 3.5, 4.0
+  - Sigmas decreased to 3.5, 4.0
   - Not a real difference
 
-Started generating 400 traces with 5.5 TP, FP sigma datasets 
+Generated 400 traces with 5.5 TP, FP sigma datasets (140+140 points)
+TP GT 0.5: 26, LT 0.5: 44
+FP GT 0.5: 34, LT 0.5: 36
+
+
+
+
